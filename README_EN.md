@@ -1,19 +1,19 @@
 PayME SDK is a set of libraries for apps to interact with PayME Platform. PayME SDK includes the following main functions:
 
-- Registration, login, eKYC system through PayME wallet account
+- Sign up, login, eKYC system through PayME wallet account.
 - Deposit and withdrawal function from PayME wallet.
 - Integration of services of PayME Platform.
 
 **Some terms**
 
 | | Name | Explanation |
-| :--- | :----- | --------------------------------------------------- |
-| 1 | app | Is an iOS/Android mobile app or a web that will integrate the SDK to perform the PayME wallet payment function. |
+| :--- | :----- | ---------------------------------------------------  |
+| 1 | app | Is an iOS/Android mobile app or web that will integrate the SDK to perform the PayME wallet payment function. |
 | 2 | SDK | Is a toolkit to support the integration of PayME wallet into the app system. |
-| 3 | backend | An integrated system that supports an app, server or api that supports |
+| 3 | backend | An integrated system that supports an app, server or api. |
 | 4 | AES | AES data encryption function. [Reference](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) |
 | 5 | RSA | RSA data encryption algorithm. |
-| 6 | IBN | Instant Payment Notification , used to notify between the app's backend and PayME's backend |
+| 6 | IPN | Instant Payment Notification , used to notify between the app's backend and PayME's backend |
 
 ## Setting
 
@@ -66,7 +66,7 @@ android {
 
 - **Update file Android Manifest**
 
-If the Integrated App uses payCode = VNPAY, configure the urlscheme to be added to the Activity to receive payment results so that when the payment is completed, the VNPAY wallet can automatically return to the integrated app
+If the integrated app uses payCode = VNPAY, please configure the urlscheme to Activity receive payment. When the payment is completed, the VNPAY app can automatically return to the integrated app.
 
 ```xml
  <activity
@@ -89,7 +89,7 @@ If the Integrated App uses payCode = VNPAY, configure the urlscheme to be added 
   </activity>
 ```
 
-Grant access to contacts when using phone top-up and money transfers
+Allow access contact permission when using phone top-up and money transfer.
 
 ```xml
   ...
@@ -99,9 +99,9 @@ Grant access to contacts when using phone top-up and money transfers
 
 - **MainActivity.java**
 
-⚠️⚠️⚠️ Removed from version 0.9.16 and later.
+⚠️⚠️⚠️ Removed from version 0.9.16 onwards.
 
-Please remove these 2 functions if installed, if not, please skip this step.
+Please remove these 2 functions if you've installed them into your app. If not, please skip this step.
 
 ```java
 ...
@@ -144,6 +144,8 @@ end
 
 Update the app's Info.plist file with the following keys (the value of the string may change, here are the messages displayed when asking the user to grant the corresponding permission):
 
+Update file Info.plist of the app with the following keys (the value of string may change, there are all messages displayed when asking user to allow the corresponding permission):
+
 ```swift
 <key>NSCameraUsageDescription</key>
 <string>Need to access your camera to capture a photo add and update profile picture.</string>
@@ -174,27 +176,28 @@ If the iOS project is not configured for Swift, you can add an optional empty .s
 
 1. Open XCode Project
 2. File -> New File -> Select .swift file -> Next -> Create -> Select Create Bridging Header
-[![img](https://docs-assets.developer.apple.com/published/f86b29eb4b/757d8a73-4e94-4b68-8227-ae32e2ca1304.png)](https://github.com/PayME-Tech/PayME-SDK-Android-Example/blob/main/fe478f50-e3de-4c58-bd6d-9f77d46ce230.png?raw=true)
 
+[![img](https://docs-assets.developer.apple.com/published/f86b29eb4b/757d8a73-4e94-4b68-8227-ae32e2ca1304.png)](https://github.com/PayME-Tech/PayME-SDK-Android-Example/blob/main/fe478f50-e3de-4c58-bd6d-9f77d46ce230.png?raw=true)
 
 ## Usage
 
 PayME system will provide the integrated app with the following information:
 
-- **PublicKey** : Used to encrypt data, the integrated app needs to transmit to the SDK for encryption .
-- **AppToken** : AppToken provides a unique identifier for each app, needs to be passed to the SDK for encryption
+- **PublicKey** : Used to encrypt data, the integrated app needs to transmit to the SDK for encryption.
+- **AppToken** : AppToken provides a unique identifier for each app, needs to transmit to the SDK for encryption.
 - **SecretKey** : Used to encrypt and authenticate data in the backend system for the integrated app.
 
-The App side will provide the PayME system with the following information:
+The App will provide the PayME system with the following information:
 
-- **AppPublicKey** : It will be sent through PayME's backend system for encryption.
-- **AppPrivateKey**: Will pass in PayME SDK to perform decryption.
+- **AppPublicKey** : It will sent through PayME's backend system for encryption.
+- **AppPrivateKey**: It will transmit to PayME SDK to perform decryption.
 
 Encryption standard: RSA-512bit.
 
 ### Initializing the Library
 
-Before using the PayME SDK it is necessary to call the initialization method only once to initialize the SDK.
+Necessary to call the initialization method only 1 time to initialize the SDK before using PayME SDK.
+
 
 ```javascript
 import payME, { ENV, LANGUAGES } from 'react-native-payme-sdk'
@@ -209,33 +212,32 @@ payME.init(
       ENV.SANDBOX
     );
 ```
-
 #### Constant
 
 | Property           | Type   | Description            |
 | ------------------ | ------ | ---------------------- |
 `ENV.SANDBOX` | `enum` | Sandbox environment. |
-| `ENV.STAGING` | `enum` | staging environment. |
+| `ENV.STAGING` | `enum` | Staging environment. |
 | `ENV.PRODUCTION` | `enum` | Production environment. |
 
 #### Parameters
 
 | Property | Type | Description |
-| -------------- | ---------- | ---------------------------------------------------|
-| `appToken` | `string` | AppId provides a unique identifier for each app, which needs to be passed to the SDK for encryption. |
-| `publicKey` | `string` | For data encryption, the built-in app needs to pass it to the SDK for encryption. Due to the PayME system provided for the integrated app. |
-| `connectToken` | `string` | app needs to pass the value given above, see how to create it below. |
-| `privateKey` | `string` | app needs to pass in to decode the data. The app side will provide the PayME system. |
-| `configColor` | `string[]` | configColor : is the color parameter to be able to change the color of PayME wallet transactions, the data type is string with the format #rrggbb. If 2 colors are transmitted, the PayME interface will gradient according to the 2 input colors. |
+| -------------- | ---------- | --------------------------------------------------- |
+| `appToken` | `string` | AppId provides a unique identifier for each app, it needs to transmit for the SDK for encryption. |
+| `publicKey` | `string` | For data encryption, the integrated app needs to transmit it to the SDK for encryption. PayME system provided for the integrated app. |
+| `connectToken` | `string` | App needs to transmit the value above, see how to create it below. |
+| `privateKey` | `string` | App needs to transmit into the app system for decode the data. The app side will provide to the PayME system. |
+| `configColor` | `string[]` | configColor : The color parameter can change color of PayME wallet transactions. The data type is string with the format #rrggbb. If 2 colors are transmitted, the PayME interface will gradient according to the 2 input colors. |
 
-configColor : is the color parameter to be able to change the color of PayME wallet transactions, the data type is string with the format #rrggbb. If 2 colors are transmitted, the PayME interface will gradient according to the 2 input colors.
+configColor : The color parameter can change color of PayME wallet transactions. The data type is string with the format #rrggbb. If 2 colors are transmitted, the PayME interface will gradient according to the 2 input colors.
 
 [![img](https://github.com/PayME-Tech/PayME-SDK-Android-Example/raw/main/fe478f50-e3de-4c58-bd6d-9f77d46ce230.png?raw=true)](https://github.com/PayME-Tech/PayME-SDK-Android-Example/blob/main/fe478f50-e3de-4c58-bd6d-9f77d46ce230.png?raw=true)
 
 
 How to create **connectToken**:
 
-connectToken is needed to pass the api call from to PayME and will be generated from the backend of the integrated app. The structure is as follows:
+connectToken is needed to transmit the api to PayME, and it will create from backend system of the integrated app. The structure is following below:
 
 -  ***Nodejs Example***
 ```javascript
@@ -280,7 +282,7 @@ const data = {
 const connectToken = encryptAES(JSON.stringify(data), appSecretkey)
 ```
 
-Create connectToken including KYC information (For partners with own KYC system)
+Create connectToken including KYC information (For partners has independent KYC system)
 
 ```javascript
 const data = {
@@ -309,17 +311,17 @@ const connectToken = encryptAES(JSON.stringify(data), appSecretkey)
 ```
 
 | **Parameters** | **Required** | **Explanation** |
-| :----------- | :---------- | :-------------------------------------------------  |
-| **timestamp** | Yes | The time of creating connectToken in the format iSO 8601 , Used to determine the timeout time of connectToken. Example 2021-01-20T06:53:07,621Z |
-| ***userId*** | Yes | is a unique fixed value corresponding to each customer account in the service, usually this value is provided by the integrated system server for the PayME SDK |
-| ***phone*** | No | Phone number of the system integrator |
+| :----------- | :---------- | :------------------------------------------------- |
+| **timestamp** | Yes | Time of creating connectToken in the format iSO 8601. Used to determine the timeout of connectToken. Example 2021-01-20T06:53:07,621Z |
+| ***userId*** | Yes | Is a unique fixed value corresponding to each customer account in the service, usually this value is provided by the integrated system server for the PayME SDK |
+| ***phone*** | No | Phone number of the system integration |
 
-Where ***AES*** is the encryption function according to the AES algorithm. Depending on the language on the server, the system side uses the corresponding library. See more here https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+In which ***AES*** is the encryption function according to the AES algorithm. Depending on the language on the server, the system side uses the corresponding library. See more: https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
 
 KycInfo Parameters
 
 | **Parameters** | **Required** | **Explanation** |
-| :----------- | :---------- | :-------------------------------------------------  |
+| :----------- | :---------- | :------------------------------------------------- |
 | fullname | Yes | Full name |
 | gender | Yes | Gender ( MALE/FEMALE) |
 | address | Yes | Address |
@@ -327,15 +329,15 @@ KycInfo Parameters
 | identifyNumber | Yes | Number of papers |
 | issuedAt | Yes | Registration date |
 | placeOfIssue | Yes | Place of issue |
-| video | No | video link |
-| face | No | path to face photo |
-| front | No | link to a photo of the front of the document |
-| back | No | link to photo of the back of the document |
+| video | No | Video link |
+| face | No | Link to face photo |
+| front | No | Link to a photo of the front of the document |
+| back | No | Link to photo of the back of the document |
 
 ### PayME SDK Error Code
 
 | **Constant** | **Error Code** | **Explanation** |
-| :----------- | :---------- | :------------------------------------------------- |
+| :----------- | :---------- | :------------------------------------------------- ---------- |
 | EXPIRED | 401 | ***token*** expired |
 | NETWORK | -1 | Network connection problem |
 | SYSTEM | -2 | System Error |
@@ -354,8 +356,8 @@ PAYMENT_PENDING | -11 | Payment Pending |
 
 There are 2 cases
 
-- Used to login for the first time right after initializing PayME.
-- Used when the accessToken expires, when calling the SDK function that returns the error code ERROR_CODE.EXPIRED, now the app needs to call login again to get the accessToken for other functions.
+- Used to login for the first time after create PayME.
+- Used when the accessToken expires. When calling the SDK function that returns the error code ERROR_CODE.EXPIRED, the app needs to re-call login to get the accessToken for other functions.
 
 After calling login() successfully, then call other functions of the SDK (openWallet, pay, ...)
 
@@ -371,10 +373,10 @@ if (response.accountStatus === AccountStatus.NOT_KYC) {
 // call fun openKYC() to identify the account
 }
 if (response.accountStatus === AccountStatus.KYC_REVIEW) {
-// Account account submitted identifier, pending approval
+// Account submitted identifier, pending approval
 }
 if (response.accountStatus === AccountStatus.KYC_REJECTED) {
-// ID request denied
+// Identify request denied
 // call fun openKYC() to identify account
 }
 if (response.accountStatus === AccountStatus.KYC_APPROVED) {
@@ -387,7 +389,7 @@ onError: (error: any) => void,
 
 #### getAccountInfo()
 
-App can use this attribute after initializing the SDK to know the link status to PayME wallet.
+App can use this attribute after create the SDK to know the link status to PayME wallet.
 
 ```javascript
 payME.openKYC(
@@ -396,9 +398,9 @@ payME.openKYC(
 );
 ```
 
-#### openWallet() - Opens the PayME synthetic function UI
+#### openWallet() - Open UI for PayME general function 
 
-This function is called when from the built-in app when you want to call a PayME function by passing the Action parameter as above.
+This function is called when from the built-in app want to call a PayME function by transmit the Action parameter as above.
 
 ```javascript
 payME.openWallet(
@@ -414,7 +416,7 @@ payME.openWallet(
 | [onSuccess](https://www.notion.so/onSuccess-6e24a547a1ad46499c9d6413b5c02e81) | Yes | Used to catch callback when making a successful transaction from PayME SDK |
 | [onError](https://www.notion.so/onError-25f94cb5a141484b8a70b9f1a2d7f33f) | Yes | Used to catch callback when an error occurs during calling PayME SDK |
 
-#### openHistory() - Opens the transaction history function UI
+#### openHistory() - Open UI for transaction history function
 
 ```javascript
 payME.openHistory(
@@ -426,12 +428,12 @@ payME.openHistory(
 #### Parameter
 
 | **Parameters** | **Required** | **Explanation** |
-| :-------------------------------------------------  | :---------- | :-------------------------------------------------  |
+| :------------------------------------------------- | :---------- | :------------------------------------------------- |
 | [onSuccess](https://www.notion.so/onSuccess-6e24a547a1ad46499c9d6413b5c02e81) | Yes | Used to catch callback when successful operation from PayME SDK |
 | [onError](https://www.notion.so/onError-25f94cb5a141484b8a70b9f1a2d7f33f) | Yes | Used to catch callback when an error occurs during calling PayME SDK |
 
 
-#### deposit() - Top up
+#### deposit() - Deposit
 
 ```javascript
 payME.deposit(
@@ -470,10 +472,10 @@ payME.transfer(
 ```
 
 **Parameters** | **Required** | **Explanation** |
-| :-------------------------------------------------  | :---------- | :------------------------------------------------- |
-| [amount](https://www.notion.so/amount-34eb8b97a9d04453867a7e4d87482980) | Yes| Used in case the action is Deposit/Withdraw, then enter the amount |
-| description | Yes | Content of money transfer |
-| closeWhenDone | Yes | true: Close SDK on completion of transaction |
+| :------------------------------------------------- | :---------- | :------------------------------------------------- |
+| [amount](https://www.notion.so/amount-34eb8b97a9d04453867a7e4d87482980) | Yes| Used in case the action is Deposit/Withdraw, then transmit the amount |
+| description | Yes | Money transfer content |
+| closeWhenDone | Yes | true: Close SDK when transaction completed |
 | onSuccess | Yes | Used to catch callback when making a successful transaction from PayME SDK |
 | onError | Yes | Used to catch callback when an error occurs during calling PayME SDK |
 
@@ -488,7 +490,7 @@ payME.scanQR(
 ```
 
 **Parameters** | **Required** | **Explanation** |
-| :-------------------------------------------------  | :---------- | :-------------------------------------------------  |
+| :------------------------------------------------- | :---------- | :------------------------------------------------- |
 | payCode | Yes | [Payment Method List](#list-method-payment) |
 
 qr format:
@@ -504,8 +506,8 @@ const qrString = "OPENEWALLET|54938607|PAYMENT|20000|Chuyentien|2445562323|taikh
 - action: transaction type ( 'PAYMENT' => payment)
 - amount: payment amount
 - note: Description of the transaction from the partner
-- orderId: partner's transaction code, which needs to be unique on each transaction. Maximum 22 characters.
-- storeId: ID of the paying public store that made the payment transaction
+- orderId: transaction code of partner, which needs to be unique on each transaction. Maximum 22 characters.
+- storeId: ID of the payment gateway that made the payment transaction
 - userName: Account name
 - type: OPENEWALLET
 
@@ -521,14 +523,14 @@ payME.payQRCode(
 ```
 
 **Parameters** | **Required** | **Explanation** |
-| :-------------------------------------------------  | :---------- | :-------------------------------------------------  |
+| :------------------------------------------------- | :---------- | :------------------------------------------------- |
 | qr | Yes | QR code for payment (QR format like scanQR function) |
 | payCode | Yes | [Payment Method List](#list-method-payment) |
-| isShowResultUI | Yes | Option to display trading results UI |
+| isShowResultUI | Yes | Option to UI display transaction results |
 
 #### getSupportedServices()
 
-App can use this property after SDK initialization for a list of services that PayME is providing
+App can use this property after create SDK for a list of services that PayME is providing
 
 ```javascript
 payME.getSupportedServices(
@@ -539,7 +541,7 @@ payME.getSupportedServices(
 
 #### openService()
 
-This function is called when from the built-in app when you want to call a service that PayME also provides by passing the service parameter as above.
+This function is called when the built-in app want to call a service that PayME also provides by transmit the service parameter as above.
 
 ```javascript
 payME.openService(
@@ -569,20 +571,20 @@ payME.pay(
 ```
 
 **Parameters** | **Required** | **Explanation** |
-| :-------------------------------------------------  | :---------- | :-------------------------------------------------  |
-| amount | Yes | The amount to be paid by the app is passed to the SDK. |
-| note | No | Description of the transaction from the counterparty. |
+| :------------------------------------------------- | :---------- | :------------------------------------------------- |
+| amount | Yes | The payment amount in app is transmit to the SDK. |
+| note | No | Description of the transaction from partner. |
 | orderId | Yes | Partner transaction code, which needs to be unique on each transaction. Maximum 22 characters. |
-| storeId | No | The ID of the payment public store that performed the payment transaction. |
+| storeId | No | The ID of store that performed the payment transaction. |
 | userName | No | Account name. |
-| extractData | No | Additional Information (extraData) is a string defined content containing additional information of a transaction that the counterparty wants to receive when completing a transaction with PAYME. If the Merchant does not need IPN to add his custom data, he can ignore it. |
-| isShowResultUI | Yes | Option to display the payment result UI. |
+| extractData | No | Additional Information (extraData) is a string defined content, containing additional information about a transaction that parrner wants to receive when completing a transaction with PAYME. If the Merchant does not need IPN to add his custom data, he can ignore it. |
+| isShowResultUI | Yes | Option UI display the payment result |
 | payCode | Yes | [Payment Method List](#list-method-payment) |
 | [onSuccess](https://www.notion.so/onSuccess-6e24a547a1ad46499c9d6413b5c02e81) | Yes | Used to catch callback when making a successful transaction from PayME SDK |
 | [onError](https://www.notion.so/onError-25f94cb5a141484b8a70b9f1a2d7f33f) | Yes | Used to catch callback when an error occurs during calling PayME SDK |
 
 In case the built-in app needs to get the balance to display itself on the UI on the app, you can use the function, this function does not display the UI of the PayME SDK.
-- When paying with PayME wallet, it is required that the activated account, identifier and balance in the wallet must be greater than the payment amount
+- When paying with PayME wallet, it required the activated account, identifier and balance in the wallet must be greater than the payment amount
 - Account information is obtained through the getAccountInfo() function
 - Balance information is obtained through the getWalletInfo function ()
 
@@ -595,7 +597,7 @@ In case the built-in app needs to get the balance to display itself on the UI on
 );
 ```
 
-- In case of error, the function will return a message every time at the onError function, then the app can display the balance as 0.
+- In case of error, the function will return a message at the onError function, then the app can display the balance as 0.
 - In the successful case, the SDK returns the following information:
 
 ```json
