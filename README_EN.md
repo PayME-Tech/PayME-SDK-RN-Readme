@@ -350,6 +350,7 @@ KycInfo Parameters
 | ACCOUNT_NOT_LOGIN | -9 | Error not logged in account |
 | BALANCE_ERROR | -10 | Error when paying with PayME wallet but the balance in the wallet is not enough |
 PAYMENT_PENDING | -11 | Payment Pending |
+| ACCOUNT_ERROR   | -12           | Account Locked |
 
 ### Functions of PayME SDK
 #### login()
