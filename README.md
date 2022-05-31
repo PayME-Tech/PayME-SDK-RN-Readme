@@ -350,6 +350,7 @@ Tham số KycInfo
 | <code>ACCOUNT_NOT_LOGIN</code>   | <code>-9</code>           | Lỗi chưa đăng nhập tài khoản |
 | <code>BALANCE_ERROR</code>   | <code>-10</code>           | Lỗi khi thanh toán bằng ví PayME mà số dư trong ví không đủ |
 <code>PAYMENT_PENDING</code>   | <code>-11</code>          | Thanh toán đang chờ xử lý |
+| <code>ACCOUNT_ERROR</code>   | <code>-12</code>           | Lỗi tài khoản bị khóa |
 
 ### Các chức năng của PayME SDK
 #### login()
